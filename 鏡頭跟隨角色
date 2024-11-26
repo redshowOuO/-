@@ -1,0 +1,28 @@
+using UnityEngine;
+
+public class CameraFollow : MonoBehaviour
+{
+    public Transform target; // 跟隨的目標
+    public float smoothSpeed = 0.125f; // 平滑移動速度
+    public Vector3 offset; // 鏡頭相對於目標的位置偏移量
+
+    void LateUpdate()
+    {
+        if (target == null) return;
+
+        // 計算目標位置（包含偏移）
+        Vector3 desiredPosition = target.position + offset;
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+
+        // 更新鏡頭位置
+        transform.position = smoothedPosition;
+    }
+
+    /// <summary>
+    /// 設定跟隨目標
+    /// </summary>
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
+    }
+}
